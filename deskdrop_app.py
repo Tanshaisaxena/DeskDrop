@@ -46,6 +46,10 @@ class DeskDropApp:
         self.url = f"http://{local_address()}:{port}/"
         self.window = tk.Tk()
         self.window.title("DeskDrop")
+        icon_path = application_directory() / "assets" / "deskdrop.png"
+        if icon_path.is_file():
+            self.window_icon = tk.PhotoImage(file=str(icon_path))
+            self.window.iconphoto(True, self.window_icon)
         self.window.geometry("430x300")
         self.window.minsize(430, 300)
         self.window.resizable(False, False)
