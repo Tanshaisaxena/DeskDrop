@@ -31,6 +31,9 @@ class FileHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         parsed_url = urllib.parse.urlsplit(self.path)
         request_path = urllib.parse.unquote(parsed_url.path)
+        if request_path == "/deskdrop-icon.svg":
+            self.send_icon()
+            return
         if request_path == "/":
             self.send_directory()
             return
@@ -149,6 +152,20 @@ class FileHandler(http.server.BaseHTTPRequestHandler):
         body = page.encode("utf-8")
         self.send_response(http.server.HTTPStatus.OK)
         self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def send_icon(self) -> None:
+        bundle_root = Path(getattr(sys, "_MEIPASS", Path(__file__).parent))
+        icon_path = bundle_root / "assets" / "deskdrop-icon.svg"
+        try:
+            body = icon_path.read_bytes()
+        except OSError:
+            self.send_error(http.server.HTTPStatus.NOT_FOUND, "Icon not found")
+            return
+        self.send_response(http.server.HTTPStatus.OK)
+        self.send_header("Content-Type", "image/svg+xml")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
