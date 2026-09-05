@@ -9,6 +9,7 @@ import http.server
 import ipaddress
 import io
 import socket
+import sys
 import urllib.parse
 import zipfile
 from email import policy
@@ -139,7 +140,8 @@ class FileHandler(http.server.BaseHTTPRequestHandler):
             f'<span class="download-icon" aria-hidden="true">&#8595;</span></a></li>'
             for file in files
         )
-        template_path = Path(__file__).with_name("gui.html")
+        bundle_root = Path(getattr(sys, "_MEIPASS", Path(__file__).parent))
+        template_path = bundle_root / "gui.html"
         page = template_path.read_text(encoding="utf-8")
         page = page.replace("__FILES__", folder_rows + file_rows or '<li class="empty">No files or folders yet. Add items to the shared folder.</li>')
         page = page.replace("__FILE_COUNT__", str(len(files) + len(folders)))

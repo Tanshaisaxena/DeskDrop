@@ -48,10 +48,12 @@ ul { display:grid; gap:.65rem; list-style:none; padding:0; margin:0; }
 .file-details small { color:var(--muted); font-size:.75rem; }
 .download-icon { color:var(--accent); font-size:1.5rem; }
 .empty { padding:1.5rem; border:1px dashed #b9cabb; border-radius:.65rem; color:var(--muted); text-align:center; background:#fffdf899; }
+:root[data-theme="dark"] .empty { border-color:#536c61; color:#d5e5db; background:#21332f; }
 .upload-panel { padding:1.2rem; border-radius:.7rem; background:var(--panel); color:#f8f3e9; box-shadow:0 12px 30px #173f3a24; }
 .upload-panel h2 { color:#f8f3e9; }
 .upload-panel p { margin:.3rem 0 1rem; color:#b9d0c3; font-size:.82rem; }
 .upload-row { display:flex; flex-wrap:wrap; gap:.7rem; align-items:center; }
+.folder-upload { margin-top:.7rem; }
 input[type=file] { min-width:0; flex:1; color:#dce9df; font-size:.8rem; }
 button { border:0; border-radius:.4rem; padding:.7rem 1rem; background:var(--accent); color:white; cursor:pointer; font:inherit; font-size:.85rem; font-weight:bold; }
 button:hover,button:focus-visible { background:#d55d3b; outline:2px solid #f7b49b; outline-offset:2px; }
